@@ -43,7 +43,7 @@ public class ContactRequestService(IDbContextFactory<DataContext> contextFactory
                 await context.ContactRequests.AddAsync(contactEntity, cts);
                 await context.SaveChangesAsync(cts);
 
-                var entity = await context.ContactRequests.LastOrDefaultAsync(x => x.Email == cReq.Email, cts);
+                var entity = await context.ContactRequests.OrderByDescending(x => x.Id).FirstOrDefaultAsync(x => x.Email == cReq.Email, cts);
 
                 if (entity != null)
                     return new ContactResult { Status = "200", ContactRequest = ContactFactory.Create(entity) };
