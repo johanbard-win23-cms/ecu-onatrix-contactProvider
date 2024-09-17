@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ecu-onatrix-contactProvider", "ecu-onatrix-contactProvider\ecu-onatrix-contactProvider.csproj", "{4DB9B7EF-4285-4328-B5F2-FBB671BBECFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DB9B7EF-4285-4328-B5F2-FBB671BBECFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DB9B7EF-4285-4328-B5F2-FBB671BBECFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DB9B7EF-4285-4328-B5F2-FBB671BBECFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DB9B7EF-4285-4328-B5F2-FBB671BBECFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB9220E5-05E2-43B9-8771-854572385330}
+	EndGlobalSection
+EndGlobal
