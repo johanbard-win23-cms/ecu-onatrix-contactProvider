@@ -32,30 +32,23 @@ public class ContactRequestService(IDbContextFactory<DataContext> contextFactory
             {
                 await using var context = await _contextFactory.CreateDbContextAsync();
 
-                if (!await context.ContactRequests.AnyAsync(x => x.Email == cReq.Email, cts))
+                ContactEntity contactEntity = new ContactEntity
                 {
-                    ContactEntity contactEntity = new ContactEntity
-                    {
-                        Name = cReq.Name,
-                        Email = cReq.Email,
-                        Phone = cReq.Phone,
-                        Category = cReq.Category
-                    };
+                    Name = cReq.Name,
+                    Email = cReq.Email,
+                    Phone = cReq.Phone,
+                    Category = cReq.Category
+                };
 
-                    await context.ContactRequests.AddAsync(contactEntity, cts);
-                    await context.SaveChangesAsync(cts);
+                await context.ContactRequests.AddAsync(contactEntity, cts);
+                await context.SaveChangesAsync(cts);
 
-                    var entity = await context.ContactRequests.FirstOrDefaultAsync(x => x.Email == cReq.Email, cts);
+                var entity = await context.ContactRequests.FirstOrDefaultAsync(x => x.Email == cReq.Email, cts);
 
-                    if (entity != null)
-                        return new ContactResult { Status = "200", ContactRequest = ContactFactory.Create(entity) };
-                    else
-                        return new ContactResult { Status = "500", Error = "New contact request not created" };
-                }
+                if (entity != null)
+                    return new ContactResult { Status = "200", ContactRequest = ContactFactory.Create(entity) };
                 else
-                {
-                    return new ContactResult { Status = "409", Error = "Conflict" };
-                }
+                    return new ContactResult { Status = "500", Error = "New contact request not created" };
 
             }
             catch (Exception ex) { return new ContactResult { Status = "500", Error = ex.Message }; }

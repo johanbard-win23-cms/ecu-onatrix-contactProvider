@@ -35,8 +35,6 @@ public class CreateContactRequest(ILogger<CreateContactRequest> logger, IContact
                     return new OkObjectResult(res.ContactRequest);
                 case "400":
                     return new BadRequestObjectResult(new { Error = $"Function CreateSubscriber failed :: {res.Error}" });
-                case "409":
-                    return new ConflictObjectResult(new { Error = $"Function CreateSubscriber failed :: {res.Error}" });
                 case "500":
                     return new ObjectResult(new { Error = $"Function CreateSubscriber failed :: {res.Error}" }) { StatusCode = 500 };
                 default:
