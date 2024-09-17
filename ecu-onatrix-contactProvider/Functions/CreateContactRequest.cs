@@ -1,4 +1,5 @@
 using Infrastructure.Models;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -7,9 +8,10 @@ using Newtonsoft.Json;
 
 namespace ecu_onatrix_contactProvider.Functions;
 
-public class CreateContactRequest(ILogger<CreateContactRequest> logger)
+public class CreateContactRequest(ILogger<CreateContactRequest> logger, IContactRequestService contactRequestService)
 {
     private readonly ILogger<CreateContactRequest> _logger = logger;
+    private readonly IContactRequestService _contactRequestService = contactRequestService;
 
     [Function("CreateContactRequest")]
     public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequest req)
@@ -25,12 +27,12 @@ public class CreateContactRequest(ILogger<CreateContactRequest> logger)
             using var ctsTimeOut = new CancellationTokenSource(TimeSpan.FromSeconds(120 * 1000));
             using var cts = CancellationTokenSource.CreateLinkedTokenSource(ctsTimeOut.Token, req.HttpContext.RequestAborted);
 
-            var res = await _contactRequestService.CreateContactRequestAsync(cReq, cts.Token);
+            var res = await _contactRequestService.CreateContactAsync(cReq, cts.Token);
 
             switch (res.Status)
             {
                 case "200":
-                    return new OkObjectResult(res.Contact);
+                    return new OkObjectResult(res.ContactRequest);
                 case "400":
                     return new BadRequestObjectResult(new { Error = $"Function CreateSubscriber failed :: {res.Error}" });
                 case "409":
