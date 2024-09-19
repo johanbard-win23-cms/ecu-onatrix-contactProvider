@@ -1,6 +1,8 @@
 ﻿
 using ecu_onatrix_contactProvider.Data.Contexts;
 using ecu_onatrix_contactProvider.Data.Entities;
+using EmailSender;
+using EmailSender.Models;
 using Infrastructure.Factories;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +22,10 @@ public interface IContactRequestService
     //public Task<ContactResult> DeleteContactAsync(ContactRequest sReq, CancellationToken cts);
 }
 
-public class ContactRequestService(IDbContextFactory<DataContext> contextFactory) : IContactRequestService
+public class ContactRequestService(IDbContextFactory<DataContext> contextFactory, IEmailSender emailSender) : IContactRequestService
 {
     private readonly IDbContextFactory<DataContext> _contextFactory = contextFactory;
+    private readonly IEmailSender _emailSender = emailSender;
 
     public async Task<ContactResult> CreateContactAsync(ContactRequest cReq, CancellationToken cts)
     {
@@ -46,7 +49,14 @@ public class ContactRequestService(IDbContextFactory<DataContext> contextFactory
                 var entity = await context.ContactRequests.OrderByDescending(x => x.Id).FirstOrDefaultAsync(x => x.Email == cReq.Email, cts);
 
                 if (entity != null)
-                    return new ContactResult { Status = "200", ContactRequest = ContactFactory.Create(entity) };
+                { 
+                    InputModel inputModel = ContactFactory.CreateEmailInput(entity);
+                    
+                    if(_emailSender.SendEmailAsync(inputModel).Result)
+                        return new ContactResult { Status = "200", ContactRequest = ContactFactory.Create(entity) };
+                    else
+                        return new ContactResult { Status = "500", Error = "New contact request email not sent to requester" };
+                }
                 else
                     return new ContactResult { Status = "500", Error = "New contact request not created" };
 

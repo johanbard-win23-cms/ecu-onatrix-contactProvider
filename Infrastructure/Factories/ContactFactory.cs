@@ -1,10 +1,6 @@
 ﻿using ecu_onatrix_contactProvider.Data.Entities;
+using EmailSender.Models;
 using Infrastructure.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Factories;
 
@@ -25,6 +21,18 @@ public class ContactFactory
     public static ContactModel Create(ContactEntity entity)
     {
         return new ContactModel
+        {
+            Id = entity.Id,
+            Name = entity.Name!,
+            Email = entity.Email,
+            Phone = entity.Phone!,
+            Category = entity.Category!
+        };
+    }
+
+    public static InputModel CreateEmailInput(ContactEntity entity)
+    {
+        return new InputModel
         {
             Id = entity.Id,
             Name = entity.Name!,

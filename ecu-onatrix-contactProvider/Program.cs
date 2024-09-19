@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ecu_onatrix_contactProvider.Data.Contexts;
 using Infrastructure.Services;
+using EmailSender;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
@@ -18,6 +19,7 @@ var host = new HostBuilder()
         });
 
         services.AddScoped<IContactRequestService, ContactRequestService>();
+        services.AddScoped<IEmailSender, EmailSender.EmailSender>();
 
     })
     .Build();
