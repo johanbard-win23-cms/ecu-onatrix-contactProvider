@@ -14,7 +14,7 @@ public class EmailFactory
                 {
                     To = model.Email,
                     Subject = $"Onatrix - Thank you for contacting us {model.Name}!",
-                    HtmlContent = $"<html><body><h1 style='text-align: center;'>Onatrix</h1><p><strong>We will get back to you shortly about {model.Category.ToLower()}!</strong></p><p>We will email or call you on phone number {model.Phone}.</p><p>Your case number is: {model.Id}</p></body></html>",
+                    HtmlContent = $"<html><body><h1 style='text-align: center;'>Onatrix</h1><p><strong>We will get back to you shortly about {model.Category.ToLower()}!</strong></p><p>We will email you, or call you on phone number {model.Phone}.</p><p>Your case number is: {model.Id}</p></body></html>",
                     PlainTextContent = $"Onatrix\r\nWe will get back to you shortly!\r\nYour case number is: {model.Id}"
                 };
             }
