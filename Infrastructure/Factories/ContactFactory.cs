@@ -14,7 +14,8 @@ public class ContactFactory
             Name = model.Name,
             Email = model.Email,
             Phone = model.Phone,
-            Category = model.Category
+            Category = model.Category,
+            Question = model.Question
         };
     }
 
@@ -26,7 +27,8 @@ public class ContactFactory
             Name = entity.Name!,
             Email = entity.Email,
             Phone = entity.Phone!,
-            Category = entity.Category!
+            Category = entity.Category!,
+            Question = entity.Question!
         };
     }
 
@@ -38,7 +40,9 @@ public class ContactFactory
             Name = entity.Name!,
             Email = entity.Email,
             Phone = entity.Phone!,
-            Category = entity.Category!
+            Category = entity.Category!,
+            Question = entity.Question!
+
         };
     }
 }

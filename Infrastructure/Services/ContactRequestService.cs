@@ -40,7 +40,8 @@ public class ContactRequestService(IDbContextFactory<DataContext> contextFactory
                     Name = cReq.Name,
                     Email = cReq.Email,
                     Phone = cReq.Phone,
-                    Category = cReq.Category
+                    Category = cReq.Category,
+                    Question = cReq.Question
                 };
 
                 await context.ContactRequests.AddAsync(contactEntity, cts);

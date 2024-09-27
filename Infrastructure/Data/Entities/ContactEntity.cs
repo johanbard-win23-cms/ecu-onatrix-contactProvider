@@ -19,4 +19,7 @@ public class ContactEntity
 
     [Column(TypeName = "nvarchar(256)")]
     public string? Category { get; set; }
+
+    [Column(TypeName = "nvarchar(max)")]
+    public string? Question { get; set; }
 }
